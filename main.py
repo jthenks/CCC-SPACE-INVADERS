@@ -215,8 +215,8 @@ class GameState():
         global bullet_state
         global running
 
-        num_enemies = 10
-        while len(enemyX) != 12:
+        num_enemies = 8
+        for i in range(num_enemies):
             enemyImg.append(pygame.image.load("./media/ufo.png"))
             enemyX.append(random.randint(0, 735))
             enemyY.append(random.randint(50, 150))
@@ -311,8 +311,8 @@ class GameState():
         global bullet_state
         global running
 
-        num_enemies = 14
-        while len(enemyX) != 12:
+        num_enemies = 11
+        for i in range(num_enemies):
             enemyImg.append(pygame.image.load("./media/ufo.png"))
             enemyX.append(random.randint(0, 735))
             enemyY.append(random.randint(50, 150))
@@ -411,7 +411,7 @@ class GameState():
             # put level up sound here
             #score_value += 5
             self.level_2()
-        if score_value >= 6:
+        if score_value >= 4:
             self.state = 'level_4'
             # put level up sound here
             #score_value += 10
