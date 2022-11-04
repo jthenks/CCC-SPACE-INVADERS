@@ -30,12 +30,6 @@ enemyX_change = []
 enemyY_change = []
 num_enemies = 6
 
-for i in range(num_enemies):
-    enemyImg.append(pygame.image.load("./media/ufo.png"))
-    enemyX.append(random.randint(0, 735))
-    enemyY.append(random.randint(50, 150))
-    enemyX_change.append(2)
-    enemyY_change.append(40)
 
 # Bullet
 bulletImg = pygame.image.load("./media/bullet.png")
@@ -127,6 +121,13 @@ class GameState():
         global bullet_state
         global running
 
+        for i in range(num_enemies):
+            enemyImg.append(pygame.image.load("./media/ufo.png"))
+            enemyX.append(random.randint(0, 735))
+            enemyY.append(random.randint(50, 150))
+            enemyX_change.append(2)
+            enemyY_change.append(40)
+
        # Game Events
         for event in pygame.event.get():
 
@@ -187,7 +188,7 @@ class GameState():
                 bulletY = 480
                 bullet_state = "ready"
                 score_value += 1
-                enemyX[i] = random.randint(0, 800)
+                enemyX[i] = random.randint(0, 736)
                 enemyY[i] = random.randint(50, 150)
 
             enemy(enemyX[i], enemyY[i], i)
@@ -218,9 +219,9 @@ class GameState():
         num_enemies = 8
         for i in range(num_enemies):
             enemyImg.append(pygame.image.load("./media/ufo.png"))
-            enemyX.append(random.randint(0, 735))
+            enemyX.append(random.randint(0, 736))
             enemyY.append(random.randint(50, 150))
-            enemyX_change.append(4)
+            enemyX_change.append(3)
             enemyY_change.append(40)
 
         # Game Events
@@ -283,7 +284,7 @@ class GameState():
                 bulletY = 480
                 bullet_state = "ready"
                 score_value += 1
-                enemyX[i] = random.randint(0, 800)
+                enemyX[i] = random.randint(0, 736)
                 enemyY[i] = random.randint(50, 150)
 
             enemy(enemyX[i], enemyY[i], i)
@@ -313,8 +314,8 @@ class GameState():
 
         num_enemies = 11
         for i in range(num_enemies):
-            enemyImg.append(pygame.image.load("./media/ufo.png"))
-            enemyX.append(random.randint(0, 735))
+            enemyImg.append(pygame.image.load("./media/level_4/ufo.png"))
+            enemyX.append(random.randint(0, 736))
             enemyY.append(random.randint(50, 150))
             enemyX_change.append(4)
             enemyY_change.append(40)
@@ -379,7 +380,7 @@ class GameState():
                 bulletY = 480
                 bullet_state = "ready"
                 score_value += 1
-                enemyX[i] = random.randint(0, 800)
+                enemyX[i] = random.randint(0, 736)
                 enemyY[i] = random.randint(50, 150)
 
             enemy(enemyX[i], enemyY[i], i)
