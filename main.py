@@ -294,7 +294,7 @@ class GameState():
 
         pygame.display.update()
 
-    def level_2(self):
+    def level_4(self):
         global score_value
         global playerX
         global playerX_change
@@ -311,10 +311,10 @@ class GameState():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    playerX_change = -3
+                    playerX_change = -4
 
                 if event.key == pygame.K_RIGHT:
-                    playerX_change = 3
+                    playerX_change = 4
 
                 if event.key == pygame.K_SPACE:
                     if bullet_state == "ready":
@@ -390,7 +390,7 @@ class GameState():
         if self.state == 'base_level':
             self.base_level()
         if score_value >= 3:
-            num_enemies = 3
+            num_enemies = 8
             while len(enemyX) != 12:
                 enemyImg.append(pygame.image.load("./media/ufo.png"))
                 enemyX.append(random.randint(0, 735))
@@ -399,14 +399,14 @@ class GameState():
                 enemyY_change.append(40)
             self.level_2()
         if score_value >= 6:
-            num_enemies = 18
+            num_enemies = 12
             while len(enemyX) != 18:
                 enemyImg.append(pygame.image.load("./media/ufo.png"))
                 enemyX.append(random.randint(0, 735))
                 enemyY.append(random.randint(50, 150))
                 enemyX_change.append(4)
                 enemyY_change.append(40)
-            self.level_3()
+            self.level_4()
 
 
 game_state = GameState()
