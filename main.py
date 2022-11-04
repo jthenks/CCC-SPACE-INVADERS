@@ -215,6 +215,14 @@ class GameState():
         global bullet_state
         global running
 
+        num_enemies = 10
+        while len(enemyX) != 12:
+            enemyImg.append(pygame.image.load("./media/ufo.png"))
+            enemyX.append(random.randint(0, 735))
+            enemyY.append(random.randint(50, 150))
+            enemyX_change.append(4)
+            enemyY_change.append(40)
+
         # Game Events
         for event in pygame.event.get():
 
@@ -303,6 +311,14 @@ class GameState():
         global bullet_state
         global running
 
+        num_enemies = 14
+        while len(enemyX) != 12:
+            enemyImg.append(pygame.image.load("./media/ufo.png"))
+            enemyX.append(random.randint(0, 735))
+            enemyY.append(random.randint(50, 150))
+            enemyX_change.append(4)
+            enemyY_change.append(40)
+
         # Game Events
         for event in pygame.event.get():
 
@@ -384,6 +400,7 @@ class GameState():
 
     def state_manager(self):
         global num_enemies
+        global score_value
 
         if self.state == 'intro':
             self.intro()
@@ -391,23 +408,13 @@ class GameState():
             self.base_level()
         if score_value >= 3:
             self.state = 'level_2'
-            num_enemies = 4
-            while len(enemyX) != 12:
-                enemyImg.append(pygame.image.load("./media/ufo.png"))
-                enemyX.append(random.randint(0, 735))
-                enemyY.append(random.randint(50, 150))
-                enemyX_change.append(4)
-                enemyY_change.append(40)
+            # put level up sound here
+            #score_value += 5
             self.level_2()
         if score_value >= 6:
             self.state = 'level_4'
-            num_enemies = 8
-            while len(enemyX) != 12:
-                enemyImg.append(pygame.image.load("./media/ufo.png"))
-                enemyX.append(random.randint(0, 735))
-                enemyY.append(random.randint(50, 150))
-                enemyX_change.append(4)
-                enemyY_change.append(40)
+            # put level up sound here
+            #score_value += 10
             self.level_4()
 
 
