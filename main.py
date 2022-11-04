@@ -2,7 +2,6 @@ import pygame
 import math
 import random
 
-
 pygame.init()
 
 # Game Screen
@@ -33,6 +32,7 @@ num_enemies_lvl2 = 8
 num_enemies_lvl3 = 12
 num_enemies_lvl4 = 15
 
+level3_start = True
 
 # Bullet
 bulletImg = pygame.image.load("./media/bullet.png")
@@ -325,7 +325,8 @@ class GameState():
         global num_enemies_lvl3
 
         for i in range(num_enemies_lvl3):
-            enemyImg.append(pygame.image.load("./media/ufo.png"))
+            enemyImg.append(pygame.image.load(
+                "./media/level_3/shipGreen_manned.png"))
             enemyX.append(random.randint(0, 736))
             enemyY.append(random.randint(50, 150))
             enemyX_change.append(4)
@@ -346,7 +347,8 @@ class GameState():
 
                 if event.key == pygame.K_SPACE:
                     if bullet_state == "ready":
-                        bullet_sound = pygame.mixer.Sound("./media/laser.wav")
+                        bullet_sound = pygame.mixer.Sound(
+                            "./media/level_3/shooting.wav")
                         bullet_sound.play()
                         bulletX = playerX
                         fire_bullet(bulletX, bulletY)
@@ -390,7 +392,7 @@ class GameState():
                 explosion_sound.play()
                 bulletY = 480
                 bullet_state = "ready"
-                score_value += 1
+                score_value += 3
                 #enemyX[i] = random.randint(0, 736)
                 #enemyY[i] = random.randint(50, 150)
                 del enemyX[i]
@@ -536,6 +538,9 @@ class GameState():
     def state_manager(self):
         global num_enemies
         global score_value
+        global background
+        global playerImg
+        global level3_start
 
         if self.state == 'intro':
             self.intro()
@@ -548,6 +553,13 @@ class GameState():
             # score_value += 10          this needs to go outside the loop
             self.level_2()
         if score_value >= 13:
+            background = pygame.image.load("./media/level_3/background.jpg")
+            playerImg = pygame.image.load("./media/level_3/spaceship.png")
+            if level3_start:
+                pygame.mixer.music.stop()
+                pygame.mixer.music.load("./media/level_3/background-music.wav")
+                pygame.mixer.music.play(-1)
+                level3_start = False
             self.state = 'level_3'
             enemyImg.clear()
             # put level up sound here   this will have to go outside the loop too I think
