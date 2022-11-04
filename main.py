@@ -311,10 +311,10 @@ class GameState():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    playerX_change = -4
+                    playerX_change = -3
 
                 if event.key == pygame.K_RIGHT:
-                    playerX_change = 4
+                    playerX_change = 3
 
                 if event.key == pygame.K_SPACE:
                     if bullet_state == "ready":
@@ -350,10 +350,10 @@ class GameState():
 
             enemyX[i] += enemyX_change[i]
             if enemyX[i] <= 0:
-                enemyX_change[i] = 1
+                enemyX_change[i] = 4
                 enemyY[i] += enemyY_change[i]
             elif enemyX[i] >= 736:
-                enemyX_change[i] = -1
+                enemyX_change[i] = -4
                 enemyY[i] += enemyY_change[i]
 
             collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
@@ -390,7 +390,8 @@ class GameState():
         if self.state == 'base_level':
             self.base_level()
         if score_value >= 3:
-            num_enemies = 8
+            self.state = 'level_2'
+            num_enemies = 4
             while len(enemyX) != 12:
                 enemyImg.append(pygame.image.load("./media/ufo.png"))
                 enemyX.append(random.randint(0, 735))
@@ -399,8 +400,9 @@ class GameState():
                 enemyY_change.append(40)
             self.level_2()
         if score_value >= 6:
-            num_enemies = 12
-            while len(enemyX) != 18:
+            self.state = 'level_4'
+            num_enemies = 8
+            while len(enemyX) != 12:
                 enemyImg.append(pygame.image.load("./media/ufo.png"))
                 enemyX.append(random.randint(0, 735))
                 enemyY.append(random.randint(50, 150))
