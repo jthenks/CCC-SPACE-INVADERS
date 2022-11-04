@@ -52,6 +52,7 @@ textY = 10
 # create the font for game over
 game_over_font = pygame.font.Font("./fonts/Square.ttf", 128)
 game_start_font = pygame.font.Font('./fonts/Square.ttf', 50)
+game_end_font = pygame.font.Font('./fonts/Square.ttf', 80)
 
 
 def show_score(x, y):
@@ -511,6 +512,27 @@ class GameState():
 
         pygame.display.update()
 
+    def win(self):
+        global running
+        global game_end_font
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                self.state = 'intro'
+
+        # Screen Attributes
+        screen.fill((0, 0, 0))
+        screen.blit(background, (0, 0))
+
+        # end font
+        end_font = game_end_font.render(
+            "Congratulations, you win!!!", True, (0, 255, 0))
+        screen.blit(end_font, (0, 250))
+
+        pygame.display.update()
+
     def state_manager(self):
         global num_enemies
         global score_value
@@ -522,24 +544,23 @@ class GameState():
         if score_value >= 5:
             self.state = 'level_2'
             enemyImg.clear()
-            # put level up sound here
-            #score_value += 10
+            # put level up sound here   this will have to go outside the loop too I think
+            # score_value += 10          this needs to go outside the loop
             self.level_2()
         if score_value >= 13:
             self.state = 'level_3'
             enemyImg.clear()
-            # put level up sound here
+            # put level up sound here   this will have to go outside the loop too I think
+            # score_value += 20     this needs to go outside the loop
             self.level_3()
-        if score_value >= 30:
+        if score_value >= 82:     # this doesn't work for now because no bonus points are added
             self.state = 'level_4'
             enemyImg.clear()
-            # put level up sound here
+            # score_value += 50    this needs to go outside the loop
+            # put level up sound here   this will have to go outside the loop too I think
             self.level_4()
-        if score_value >= 57:
-            self.state = 'level_4'
-            enemyImg.clear()
-            # put level up sound here
-            # self.win()
+        if score_value >= 192:    # this doens't work for now because no bonus points are added
+            self.win()
 
 
 game_state = GameState()
