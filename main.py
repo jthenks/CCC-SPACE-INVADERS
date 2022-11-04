@@ -7,6 +7,7 @@ pygame.init()
 # Game Screen
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Space Invaders")
+clock = pygame.time.Clock()
 
 # Background
 background = pygame.image.load("./media/stars.png")
@@ -213,8 +214,6 @@ class GameState():
         player(playerX, playerY)
         show_score(textX, textY)
 
-        pygame.display.update()
-
     def level_2(self):
         global score_value
         global playerX
@@ -311,8 +310,6 @@ class GameState():
 
         player(playerX, playerY)
         show_score(textX, textY)
-
-        pygame.display.update()
 
     def level_3(self):
         global score_value
@@ -413,8 +410,6 @@ class GameState():
         player(playerX, playerY)
         show_score(textX, textY)
 
-        pygame.display.update()
-
     def level_4(self):
         global score_value
         global playerX
@@ -512,8 +507,6 @@ class GameState():
         player(playerX, playerY)
         show_score(textX, textY)
 
-        pygame.display.update()
-
     def win(self):
         global running
         global game_end_font
@@ -532,8 +525,6 @@ class GameState():
         end_font = game_end_font.render(
             "Congratulations, you win!!!", True, (0, 255, 0))
         screen.blit(end_font, (0, 250))
-
-        pygame.display.update()
 
     def state_manager(self):
         global num_enemies
@@ -581,3 +572,5 @@ game_state = GameState()
 running = True
 while running:
     game_state.state_manager()
+    pygame.display.update()
+    clock.tick(60)
