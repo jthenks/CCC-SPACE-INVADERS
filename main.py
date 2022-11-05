@@ -17,7 +17,9 @@ pygame.mixer.music.load("./media/background.wav")
 pygame.mixer.music.play(-1)
 
 bullet_sound = pygame.mixer.Sound("./media/laser.wav")
+bullet_sound_4 = pygame.mixer.Sound('./media/level_4/laser.mp3')
 explosion_sound = pygame.mixer.Sound("./media/explosion.wav")
+explosion_sound_4 = pygame.mixer.Sound('./media/level_4/explosion.wav')
 victory_sound = pygame.mixer.Sound('./media/victory_sound.mp3')
 
 # Player
@@ -60,6 +62,7 @@ textY = 10
 game_over_font = pygame.font.Font("./fonts/Square.ttf", 128)
 game_start_font = pygame.font.Font('./fonts/Square.ttf', 50)
 game_end_font = pygame.font.Font('./fonts/Square.ttf', 50)
+game_end_score = pygame.font.Font('./fonts/Square.ttf', 40)
 
 
 def show_score(x, y):
@@ -426,6 +429,8 @@ class GameState():
         global bullet_state
         global running
         global num_enemies_lvl4
+        global bullet_sound_4
+        global explosion_sound_4
 
         for i in range(num_enemies_lvl4):
             enemyImg.append(pygame.image.load("./media/level_4/ufo.png"))
@@ -449,9 +454,7 @@ class GameState():
 
                 if event.key == pygame.K_SPACE:
                     if bullet_state == "ready":
-                        bullet_sound = pygame.mixer.Sound(
-                            "./media/level_4/laser.mp3")
-                        bullet_sound.play()
+                        bullet_sound_4.play()
                         bulletX = playerX
                         fire_bullet(bulletX, bulletY)
 
@@ -490,9 +493,7 @@ class GameState():
 
             collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
             if collision:
-                explosion_sound = pygame.mixer.Sound(
-                    "./media/level_4/explosion.wav")
-                explosion_sound.play()
+                explosion_sound_4.play()
                 bulletY = 480
                 bullet_state = "ready"
                 score_value += 5
@@ -517,6 +518,7 @@ class GameState():
     def win(self):
         global running
         global game_end_font
+        global game_end_score
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
@@ -531,7 +533,10 @@ class GameState():
         # end font
         end_font = game_end_font.render(
             "Congratulations, you win!!!", True, (0, 255, 0))
-        screen.blit(end_font, (80, 250))
+        screen.blit(end_font, (80, 270))
+        end_score = game_end_score.render(
+            'Your score: ' + str(score_value), True, (0, 255, 0))
+        screen.blit(end_score, (250, 350))
 
     def state_manager(self):
         global score_value
@@ -544,6 +549,7 @@ class GameState():
         global level3_start
         global level4_start
         global victory_sound
+        global bullet_sound_4
 
         if self.state == 'intro':
             self.intro()
@@ -597,8 +603,7 @@ class GameState():
             playerImg = pygame.image.load("./media/level_4/spaceship.png")
             background = pygame.image.load("./media/level_4/stars.png")
             bulletImg = pygame.image.load("./media/level_4/bullet.png")
-            bullet_sound = bullet_sound = pygame.mixer.Sound(
-                "./media/level_4/laser.mp3")
+            #bullet_sound_4 = pygame.mixer.Sound("./media/level_4/laser.mp3")
 
             if level4_start:
                 score_value += 31
