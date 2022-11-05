@@ -42,6 +42,7 @@ num_enemies_lvl4 = 15
 level2_start = True
 level3_start = True
 level4_start = True
+end_game_bonus = True
 
 # Bullet
 bulletImg = pygame.image.load("./media/bullet.png")
@@ -301,7 +302,7 @@ class GameState():
                 explosion_sound.play()
                 bulletY = 480
                 bullet_state = "ready"
-                score_value += 1
+                score_value += 2
                 #enemyX[i] = random.randint(0, 736)
                 #enemyY[i] = random.randint(50, 150)
                 del enemyX[i]
@@ -550,6 +551,7 @@ class GameState():
         global level4_start
         global victory_sound
         global bullet_sound_4
+        global end_game_bonus
 
         if self.state == 'intro':
             self.intro()
@@ -576,8 +578,8 @@ class GameState():
 
             enemyImg.clear()
             self.level_2()
-        if score_value >= 23:
-            if score_value == 23:
+        if score_value >= 31:
+            if score_value == 31:
                 victory_sound.play()
 
             background = pygame.image.load("./media/level_3/background.jpg")
@@ -596,8 +598,8 @@ class GameState():
             self.state = 'level_3'
             enemyImg.clear()
             self.level_3()
-        if score_value >= 79:
-            if score_value == 79:
+        if score_value >= 87:
+            if score_value == 87:
                 victory_sound.play()
 
             playerImg = pygame.image.load("./media/level_4/spaceship.png")
@@ -606,7 +608,7 @@ class GameState():
             #bullet_sound_4 = pygame.mixer.Sound("./media/level_4/laser.mp3")
 
             if level4_start:
-                score_value += 31
+                score_value += 30
                 pygame.mixer.Sound.stop(bullet_sound)
                 pygame.mixer.Sound.stop(explosion_sound)
                 pygame.mixer.music.stop()
@@ -618,7 +620,11 @@ class GameState():
             enemyImg.clear()
 
             self.level_4()
-        if score_value >= 185:
+        if score_value >= 192:
+            if end_game_bonus == True:
+                score_value += 58
+                end_game_bonus = False
+
             self.win()
 
 
