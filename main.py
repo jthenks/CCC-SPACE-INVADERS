@@ -97,6 +97,39 @@ def isCollision(enemyX, enemyY, bulletX, bulletY):
         return False
 
 
+def isCollision_lvl2(enemyX, enemyY, bulletX, bulletY):
+
+    distance = math.sqrt(math.pow((enemyX - 10)-bulletX, 2) +
+                         math.pow(enemyY-bulletY, 2))
+
+    if distance < 27:
+        return True
+    else:
+        return False
+
+
+def isCollision_lvl3(enemyX, enemyY, bulletX, bulletY):
+
+    distance = math.sqrt(math.pow((enemyX)-bulletX, 2) +
+                         math.pow(enemyY-bulletY, 2))
+
+    if distance < 27:
+        return True
+    else:
+        return False
+
+
+def isCollision_lvl4(enemyX, enemyY, bulletX, bulletY):
+
+    distance = math.sqrt(math.pow((enemyX - 30)-bulletX, 2) +
+                         math.pow(enemyY-bulletY, 2))
+
+    if distance < 27:
+        return True
+    else:
+        return False
+
+
 def game_over():  # display the game over text
     over_font = game_over_font.render("GAME OVER", True, (255, 255, 255))
     screen.blit(over_font, (100, 250))
@@ -233,6 +266,7 @@ class GameState():
         global bullet_state
         global running
         global num_enemies_lvl2
+        bulletX_lvl2 = bulletX+10
 
         for i in range(num_enemies_lvl2):
             enemyImg.append(pygame.image.load("./media/level_2/pinkufo.png"))
@@ -295,7 +329,8 @@ class GameState():
                 enemyX_change[i] = -3
                 enemyY[i] += enemyY_change[i]
 
-            collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
+            collision = isCollision_lvl2(
+                enemyX[i], enemyY[i], bulletX, bulletY)
             if collision:
                 explosion_sound = pygame.mixer.Sound(
                     "./media/level_2/explosionsound.mp3")
@@ -317,7 +352,7 @@ class GameState():
             bullet_state = "ready"
 
         if bullet_state == "fire":
-            fire_bullet(bulletX, bulletY)
+            fire_bullet(bulletX_lvl2, bulletY)
             bulletY -= bulletY_change
 
         player(playerX, playerY)
@@ -332,6 +367,7 @@ class GameState():
         global bullet_state
         global running
         global num_enemies_lvl3
+        bulletX_lvl3 = bulletX-45
 
         for i in range(num_enemies_lvl3):
             enemyImg.append(pygame.image.load(
@@ -395,7 +431,8 @@ class GameState():
                 enemyX_change[i] = -4
                 enemyY[i] += enemyY_change[i]
 
-            collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
+            collision = isCollision_lvl3(
+                enemyX[i], enemyY[i], bulletX, bulletY)
             if collision:
                 explosion_sound = pygame.mixer.Sound(
                     "./media/level_3/explosion.wav")
@@ -415,7 +452,7 @@ class GameState():
             bullet_state = "ready"
 
         if bullet_state == "fire":
-            fire_bullet(bulletX, bulletY)
+            fire_bullet(bulletX_lvl3, bulletY)
             bulletY -= bulletY_change
 
         player(playerX, playerY)
@@ -492,7 +529,8 @@ class GameState():
                 enemyX_change[i] = -5
                 enemyY[i] += enemyY_change[i]
 
-            collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
+            collision = isCollision_lvl4(
+                enemyX[i], enemyY[i], bulletX, bulletY)
             if collision:
                 explosion_sound_4.play()
                 bulletY = 480
