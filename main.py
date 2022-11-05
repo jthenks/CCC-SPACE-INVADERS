@@ -18,6 +18,7 @@ pygame.mixer.music.play(-1)
 
 bullet_sound = pygame.mixer.Sound("./media/laser.wav")
 explosion_sound = pygame.mixer.Sound("./media/explosion.wav")
+victory_sound = pygame.mixer.Sound('./media/victory_sound.mp3')
 
 # Player
 playerImg = pygame.image.load("./media/spaceship.png")
@@ -542,12 +543,15 @@ class GameState():
         global level2_start
         global level3_start
         global level4_start
+        global victory_sound
 
         if self.state == 'intro':
             self.intro()
         if self.state == 'base_level':
             self.base_level(5, 2)
         if score_value >= 5:
+            if score_value == 5:
+                victory_sound.play()
 
             self.state = 'level_2'
 
@@ -567,6 +571,8 @@ class GameState():
             enemyImg.clear()
             self.level_2()
         if score_value >= 23:
+            if score_value == 23:
+                victory_sound.play()
 
             background = pygame.image.load("./media/level_3/background.jpg")
             playerImg = pygame.image.load("./media/level_3/spaceship.png")
@@ -585,6 +591,8 @@ class GameState():
             enemyImg.clear()
             self.level_3()
         if score_value >= 79:
+            if score_value == 79:
+                victory_sound.play()
 
             playerImg = pygame.image.load("./media/level_4/spaceship.png")
             background = pygame.image.load("./media/level_4/stars.png")
