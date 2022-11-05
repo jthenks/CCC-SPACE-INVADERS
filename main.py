@@ -392,7 +392,8 @@ class GameState():
 
             collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
             if collision:
-                explosion_sound = pygame.mixer.Sound("./media/explosion.wav")
+                explosion_sound = pygame.mixer.Sound(
+                    "./media/level_3/explosion.wav")
                 explosion_sound.play()
                 bulletY = 480
                 bullet_state = "ready"
@@ -489,7 +490,7 @@ class GameState():
             collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
             if collision:
                 explosion_sound = pygame.mixer.Sound(
-                    "./media/explosion.wav")
+                    "./media/level_4/explosion.wav")
                 explosion_sound.play()
                 bulletY = 480
                 bullet_state = "ready"
@@ -569,7 +570,7 @@ class GameState():
 
             background = pygame.image.load("./media/level_3/background.jpg")
             playerImg = pygame.image.load("./media/level_3/spaceship.png")
-            # bulletImg = pygame.image.load("./media/level_2/bullet.png")
+            bulletImg = pygame.image.load("./media/level_3/bullet.png")
 
             if level3_start:
                 score_value += 20
@@ -587,7 +588,9 @@ class GameState():
 
             playerImg = pygame.image.load("./media/level_4/spaceship.png")
             background = pygame.image.load("./media/level_4/stars.png")
-            # bulletImg = pygame.image.load("./media/level_2/bullet.png")
+            bulletImg = pygame.image.load("./media/level_4/bullet.png")
+            bullet_sound = bullet_sound = pygame.mixer.Sound(
+                "./media/level_4/laser.mp3")
 
             if level4_start:
                 score_value += 31
