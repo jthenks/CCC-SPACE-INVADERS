@@ -16,6 +16,9 @@ background = pygame.image.load("./media/stars.png")
 pygame.mixer.music.load("./media/background.wav")
 pygame.mixer.music.play(-1)
 
+bullet_sound = pygame.mixer.Sound("./media/laser.wav")
+explosion_sound = pygame.mixer.Sound("./media/explosion.wav")
+
 # Player
 playerImg = pygame.image.load("./media/spaceship.png")
 playerX = 370
@@ -33,7 +36,9 @@ num_enemies_lvl2 = 8
 num_enemies_lvl3 = 12
 num_enemies_lvl4 = 15
 
+level2_start = True
 level3_start = True
+level4_start = True
 
 # Bullet
 bulletImg = pygame.image.load("./media/bullet.png")
@@ -53,7 +58,7 @@ textY = 10
 # create the font for game over
 game_over_font = pygame.font.Font("./fonts/Square.ttf", 128)
 game_start_font = pygame.font.Font('./fonts/Square.ttf', 50)
-game_end_font = pygame.font.Font('./fonts/Square.ttf', 80)
+game_end_font = pygame.font.Font('./fonts/Square.ttf', 50)
 
 
 def show_score(x, y):
@@ -199,7 +204,7 @@ class GameState():
                 del enemyX[i]
                 del enemyY[i]
                 num_enemies -= 1
-
+            
             enemy(enemyX[i], enemyY[i], i)
 
         # Bullet Animation
@@ -225,7 +230,7 @@ class GameState():
         global num_enemies_lvl2
 
         for i in range(num_enemies_lvl2):
-            enemyImg.append(pygame.image.load("./media/level_4/ufo.png"))
+            enemyImg.append(pygame.image.load("./media/level_2/pinkufo.png"))
             enemyX.append(random.randint(0, 736))
             enemyY.append(random.randint(50, 150))
             enemyX_change.append(3)
@@ -246,7 +251,7 @@ class GameState():
 
                 if event.key == pygame.K_SPACE:
                     if bullet_state == "ready":
-                        bullet_sound = pygame.mixer.Sound("./media/laser.wav")
+                        bullet_sound = pygame.mixer.Sound("./media/level_2/bulletshot.mp3")
                         bullet_sound.play()
                         bulletX = playerX
                         fire_bullet(bulletX, bulletY)
@@ -286,7 +291,7 @@ class GameState():
 
             collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
             if collision:
-                explosion_sound = pygame.mixer.Sound("./media/explosion.wav")
+                explosion_sound = pygame.mixer.Sound("./media/level_2/explosionsound.mp3")
                 explosion_sound.play()
                 bulletY = 480
                 bullet_state = "ready"
@@ -296,7 +301,7 @@ class GameState():
                 del enemyX[i]
                 del enemyY[i]
                 num_enemies_lvl2 -= 1
-
+            
             enemy(enemyX[i], enemyY[i], i)
 
         # Bullet Animation
@@ -486,7 +491,7 @@ class GameState():
                 explosion_sound.play()
                 bulletY = 480
                 bullet_state = "ready"
-                score_value += 1
+                score_value += 5
                 #enemyX[i] = random.randint(0, 736)
                 #enemyY[i] = random.randint(50, 150)
                 del enemyX[i]
@@ -526,43 +531,78 @@ class GameState():
             "Congratulations, you win!!!", True, (0, 255, 0))
         screen.blit(end_font, (0, 250))
 
+
     def state_manager(self):
-        global num_enemies
         global score_value
         global background
         global playerImg
+        global bulletImg
+        global bullet_sound
+        global explosion_sound
+        global level2_start
         global level3_start
+        global level4_start
+        
 
         if self.state == 'intro':
             self.intro()
         if self.state == 'base_level':
             self.base_level(5, 2)
         if score_value >= 5:
+            
+
             self.state = 'level_2'
+
+            background = pygame.image.load("./media/level_2/background.jpg")
+            playerImg = pygame.image.load("./media/level_2/spaceship.png")
+            bulletImg = pygame.image.load("./media/level_2/bullet.png")
+            
+            if level2_start:
+                score_value += 10
+                pygame.mixer.Sound.stop(bullet_sound)
+                pygame.mixer.Sound.stop(explosion_sound)
+                pygame.mixer.music.stop()
+                pygame.mixer.music.load("./media/level_2/backgroundmusic.mp3")
+                pygame.mixer.music.play(-1)
+                level2_start = False
+
             enemyImg.clear()
-            # put level up sound here   this will have to go outside the loop too I think
-            # score_value += 10          this needs to go outside the loop
             self.level_2()
-        if score_value >= 13:
+        if score_value >= 23:
+            
             background = pygame.image.load("./media/level_3/background.jpg")
             playerImg = pygame.image.load("./media/level_3/spaceship.png")
+            # bulletImg = pygame.image.load("./media/level_2/bullet.png")
+
             if level3_start:
+                score_value += 20
+                pygame.mixer.Sound.stop(bullet_sound)
+                pygame.mixer.Sound.stop(explosion_sound)
                 pygame.mixer.music.stop()
                 pygame.mixer.music.load("./media/level_3/background-music.wav")
                 pygame.mixer.music.play(-1)
                 level3_start = False
+            
             self.state = 'level_3'
             enemyImg.clear()
-            # put level up sound here   this will have to go outside the loop too I think
-            # score_value += 20     this needs to go outside the loop
             self.level_3()
-        if score_value >= 82:     # this doesn't work for now because no bonus points are added
+        if score_value >= 79:    
+            
+            if level4_start:
+                score_value += 31
+                pygame.mixer.Sound.stop(bullet_sound)
+                pygame.mixer.Sound.stop(explosion_sound)
+                pygame.mixer.music.stop()
+                pygame.mixer.music.load("./media/level_3/background-music.wav")
+                pygame.mixer.music.play(-1)
+                level4_start = False
+            
             self.state = 'level_4'
             enemyImg.clear()
-            # score_value += 50    this needs to go outside the loop
-            # put level up sound here   this will have to go outside the loop too I think
+
+
             self.level_4()
-        if score_value >= 192:    # this doens't work for now because no bonus points are added
+        if score_value >= 185:    
             self.win()
 
 
