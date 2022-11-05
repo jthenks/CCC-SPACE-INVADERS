@@ -131,7 +131,7 @@ def isCollision_lvl4(enemyX, enemyY, bulletX, bulletY):
 
 
 def game_over():  # display the game over text
-    over_font = game_over_font.render("GAME OVER", True, (255, 255, 255))
+    over_font = game_over_font.render("GAME OVER", True, (255, 0, 0))
     screen.blit(over_font, (100, 250))
 
 
@@ -160,7 +160,7 @@ class GameState():
 
         pygame.display.update()
 
-    def base_level(self, alien_num, alien_speed):
+    def base_level(self):
         global score_value
         global playerX
         global playerX_change
@@ -170,7 +170,7 @@ class GameState():
         global running
         global num_enemies
 
-        for i in range(alien_num):
+        for i in range(5):
             enemyImg.append(pygame.image.load("./media/ufo.png"))
             enemyX.append(random.randint(0, 735))
             enemyY.append(random.randint(50, 150))
@@ -224,10 +224,10 @@ class GameState():
 
             enemyX[i] += enemyX_change[i]
             if enemyX[i] <= 0:
-                enemyX_change[i] = alien_speed
+                enemyX_change[i] = 3
                 enemyY[i] += enemyY_change[i]
             elif enemyX[i] >= 736:
-                enemyX_change[i] = -(alien_speed)
+                enemyX_change[i] = -3
                 enemyY[i] += enemyY_change[i]
 
             collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
@@ -323,10 +323,10 @@ class GameState():
 
             enemyX[i] += enemyX_change[i]
             if enemyX[i] <= 0:
-                enemyX_change[i] = 3
+                enemyX_change[i] = 5
                 enemyY[i] += enemyY_change[i]
             elif enemyX[i] >= 736:
-                enemyX_change[i] = -3
+                enemyX_change[i] = -5
                 enemyY[i] += enemyY_change[i]
 
             collision = isCollision_lvl2(
@@ -425,10 +425,10 @@ class GameState():
 
             enemyX[i] += enemyX_change[i]
             if enemyX[i] <= 0:
-                enemyX_change[i] = 4
+                enemyX_change[i] = 8
                 enemyY[i] += enemyY_change[i]
             elif enemyX[i] >= 736:
-                enemyX_change[i] = -4
+                enemyX_change[i] = -8
                 enemyY[i] += enemyY_change[i]
 
             collision = isCollision_lvl3(
@@ -523,10 +523,10 @@ class GameState():
 
             enemyX[i] += enemyX_change[i]
             if enemyX[i] <= 0:
-                enemyX_change[i] = 5
+                enemyX_change[i] = 10
                 enemyY[i] += enemyY_change[i]
             elif enemyX[i] >= 736:
-                enemyX_change[i] = -5
+                enemyX_change[i] = -10
                 enemyY[i] += enemyY_change[i]
 
             collision = isCollision_lvl4(
@@ -594,7 +594,7 @@ class GameState():
         if self.state == 'intro':
             self.intro()
         if self.state == 'base_level':
-            self.base_level(5, 2)
+            self.base_level()
         if score_value >= 5:
             if score_value == 5:
                 victory_sound.play()
