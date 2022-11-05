@@ -156,7 +156,7 @@ class GameState():
 
         # start font
         start_font = game_start_font.render("START", True, (0, 255, 0))
-        screen.blit(start_font, (330, 250))
+        screen.blit(start_font, (330, 280))
 
         pygame.display.update()
 
@@ -523,10 +523,10 @@ class GameState():
 
             enemyX[i] += enemyX_change[i]
             if enemyX[i] <= 0:
-                enemyX_change[i] = 10
+                enemyX_change[i] = 11
                 enemyY[i] += enemyY_change[i]
             elif enemyX[i] >= 736:
-                enemyX_change[i] = -10
+                enemyX_change[i] = -11
                 enemyY[i] += enemyY_change[i]
 
             collision = isCollision_lvl4(
@@ -558,12 +558,9 @@ class GameState():
         global running
         global game_end_font
         global game_end_score
-        for event in pygame.event.get():
-
-            if event.type == pygame.QUIT:
-                running = False
-            if event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.KEYDOWN:
-                self.state = 'intro'
+        global level2_start
+        global level3_start
+        global level4_start
 
         # Screen Attributes
         screen.fill((0, 0, 0))
@@ -576,6 +573,15 @@ class GameState():
         end_score = game_end_score.render(
             'Your score: ' + str(score_value), True, (0, 255, 0))
         screen.blit(end_score, (250, 350))
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.KEYDOWN:
+                level2_start = True
+                level3_start = True
+                level4_start = True
+                self.state = 'intro'
 
     def state_manager(self):
         global score_value
@@ -663,6 +669,8 @@ class GameState():
                 score_value += 58
                 end_game_bonus = False
 
+            pygame.mixer.Sound.stop(bullet_sound)
+            pygame.mixer.Sound.stop(explosion_sound)
             self.win()
 
 
