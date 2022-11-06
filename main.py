@@ -156,7 +156,7 @@ class GameState():
 
         # start font
         start_font = game_start_font.render("START", True, (0, 255, 0))
-        screen.blit(start_font, (330, 280))
+        screen.blit(start_font, (330, 270))
 
         pygame.display.update()
 
