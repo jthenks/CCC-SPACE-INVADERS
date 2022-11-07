@@ -425,10 +425,10 @@ class GameState():
 
             enemyX[i] += enemyX_change[i]
             if enemyX[i] <= 0:
-                enemyX_change[i] = 8
+                enemyX_change[i] = 6
                 enemyY[i] += enemyY_change[i]
             elif enemyX[i] >= 736:
-                enemyX_change[i] = -8
+                enemyX_change[i] = -6
                 enemyY[i] += enemyY_change[i]
 
             collision = isCollision_lvl3(
@@ -523,10 +523,10 @@ class GameState():
 
             enemyX[i] += enemyX_change[i]
             if enemyX[i] <= 0:
-                enemyX_change[i] = 11
+                enemyX_change[i] = 8
                 enemyY[i] += enemyY_change[i]
             elif enemyX[i] >= 736:
-                enemyX_change[i] = -11
+                enemyX_change[i] = -8
                 enemyY[i] += enemyY_change[i]
 
             collision = isCollision_lvl4(
