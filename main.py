@@ -601,7 +601,7 @@ class GameState():
             self.intro()
         if self.state == 'base_level':
             self.base_level()
-        if score_value >= 5 and score_valie < 31:
+        if score_value >= 5 and score_value < 31:
             if score_value == 5:
                 victory_sound.play()
 
