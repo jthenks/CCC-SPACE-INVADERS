@@ -601,7 +601,7 @@ class GameState():
             self.intro()
         if self.state == 'base_level':
             self.base_level()
-        if score_value >= 5:
+        if score_value >= 5 and score_valie < 31:
             if score_value == 5:
                 victory_sound.play()
 
@@ -622,7 +622,7 @@ class GameState():
 
             enemyImg.clear()
             self.level_2()
-        if score_value >= 31:
+        if score_value >= 31 and score_value < 87:
             if score_value == 31:
                 victory_sound.play()
 
@@ -642,7 +642,7 @@ class GameState():
             self.state = 'level_3'
             enemyImg.clear()
             self.level_3()
-        if score_value >= 87:
+        if score_value >= 87 and score_value < 192:
             if score_value == 87:
                 victory_sound.play()
 
